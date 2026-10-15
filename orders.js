@@ -1,0 +1,2 @@
+// Orders must only be created/queried through secure RLS-protected database operations and trusted Edge Functions.
+document.addEventListener("DOMContentLoaded",async()=>{const msg=document.getElementById("ordersMessage");const {data}=await window.brjDb.auth.getUser();if(!data.user){msg.textContent="Please login to view your orders.";return;}msg.textContent="Order history is not enabled until the secure order schema and Edge Functions are deployed.";});

@@ -1,0 +1,7 @@
+document.addEventListener("DOMContentLoaded",()=>{
+ const db=window.brjDb;const msg=document.getElementById("authMessage");
+ const show=(text,kind="notice")=>{msg.hidden=false;msg.className="notice "+kind;msg.textContent=text;};
+ const login=document.getElementById("loginForm"), reg=document.getElementById("registerForm");
+ login?.addEventListener("submit",async e=>{e.preventDefault();const {data,error}=await db.auth.signInWithPassword({email:document.getElementById("email").value.trim(),password:document.getElementById("password").value});if(error){show(error.message,"error");return;}location.href="account.html";});
+ reg?.addEventListener("submit",async e=>{e.preventDefault();const email=document.getElementById("email").value.trim(),password=document.getElementById("password").value,fullName=document.getElementById("fullName").value.trim(),referralCode=document.getElementById("referralCode").value.trim();const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:fullName, referral_code_entered:referralCode||null}}});if(error){show(error.message,"error");return;}show("Account request submitted. Check your email if confirmation is enabled. Referral attribution must be validated server-side before rewards are granted.","success");});
+});
